@@ -1,90 +1,85 @@
+const mongoose = require("mongoose");
+require("./../Model/childModel");
 
-const {ValidationResult,body}=require('express-validator');
-const Child = require('../models/child');
+const ChildSchema = mongoose.model("childrens");
 
-exports.getChildren = (req,res,next)=>{
-    // res.status(200).json({data:[{},{},{}]})
-    Child.find().then((children)=>{
-        res.status(200).json({data:children});
-    }).catch((err)=>{
-        res.status(500).json({error:err});
-    });
-}
+exports.getAllChilds = (request, response, next) => {
+	ChildSchema.find({})
+		.then((data) => {
+			response.status(200).json({ data });
+		})
+		.catch((error) => {
+			next(error);
+		});
+};
 
-exports.getChildByID = (req,res,next)=>{
-    // res.status(200).json({data:req.params.id});
-    //get the id from the request
-    const id = req.params.id;
-    //find the child by id
-    Child.findById(id).then((child)=>{
-        res.status(200).json({data:child});
-    }).catch((err)=>{
-        res.status(500).json({error:err});
-    });
-}
+exports.getChild = (request, response, next) => {
+	ChildSchema.findById(request.params.id)
+		.then((data) => {
+			if (data == null) {
+				next(new Error("Child Not Found"));
+			} else {
+				response.status(200).json({ data });
+			}
+		})
+		.catch((error) => {
+			next(error);
+		});
+};
 
+exports.addChild = (request, response, next) => {
+	new ChildSchema({
+		_id: request.body.id,
+		fullName: request.body.fullName,
+		age: request.body.age,
+		level: request.body.level,
+		address: request.body.address,
+	})
+		.save()
+		.then((data) => {
+			response.status(201).json({ data });
+		})
+		.catch((error) => {
+			next(error);
+		});
+};
 
+exports.updateChild = (request, response, next) => {
+	ChildSchema.updateOne(
+		{
+			_id: request.body.id,
+		},
+		{
+			$set: {
+				fullName: request.body.fullName,
+				age: request.body.age,
+				level: request.body.level,
+				address: request.body.address,
+			},
+		}
+	)
+		.then((data) => {
+			if (data.matchedCount == 0) {
+				next(new Error("Child Not Found"));
+			} else {
+				response.status(200).json({ data: "Updated" });
+			}
+		})
+		.catch((error) => {
+			next(error);
+		});
+};
 
-exports.addChild = (req,res,next)=>{
- //   res.status(201).json({data:"add new child"});
- //validate the request
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors:errors.array()});
-    }
-    //create a new child
-    const child = new Child({
-        name:req.body.name,
-        age:req.body.age,
-        image:req.body.image,
-        class:req.body.class
-    });
-    //save the child
-    child.save().then((result)=>{
-        res.status(201).json({data:result});
-    }).catch((err)=>{
-        res.status(500).json({error:err});
-    });
-
-
-}
-
-exports.updateChild = (req,res,next)=>{
-    // res.status(200).json({data:"child"});
-    //validate the request
-    const errors = validationResult(req);
-    if(!errors.isEmpty()){
-        return res.status(400).json({errors:errors.array()});
-    }
-    //get the id from the request
-    const id = req.params.id;
-    //find the child by id
-    Child.findById(id).then((child)=>{
-        //update the child
-        child.name = req.body.name;
-        child.age = req.body.age;
-        child.image = req.body.image;
-        child.class = req.body.class;
-        //save the child
-        return child.save();
-    }).then((result)=>{
-        res.status(200).json({data:result});
-    }).catch((err)=>{
-        res.status(500).json({error:err});
-    });
-
-
-}
-
-exports.deleteChild = (req,res,next)=>{
-    // res.status(200).json({data:"delete Child"});
-    //get the id from the request
-    const id = req.params.id;
-    //find the child by id and delete
-    Child.findByIdAndDelete(id).then((result)=>{
-        res.status(200).json({data:result});
-    }).catch((err)=>{
-        res.status(500).json({error:err});
-    });
-    
-}
+exports.deleteChild = (request, response, next) => {
+	ChildSchema.deleteOne({ _id: request.body.id })
+		.then((data) => {
+			if (data.deletedCount != 1) {
+				next(new Error("Child Not Found"));
+			} else {
+				response.status(200).json({ data: "Deleted" });
+			}
+		})
+		.catch((error) => {
+			next(error);
+		});
+};
