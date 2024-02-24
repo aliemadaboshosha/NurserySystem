@@ -1,18 +1,15 @@
+const mongoose = require("mongoose");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
-
-const mongoose = require('mongoose');
-
-// Define class schema
-const classSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    // You can add more fields as needed
+const schema = mongoose.Schema({
+	_id: Number,
+	fullName: { type: String, required: true },
+	supervisor: { type: mongoose.ObjectId },
+	children: { type: [Number] },
 });
 
-// Create Class model
-const Class = mongoose.model('Class', classSchema);
+schema.plugin(AutoIncrement, { id: "class_id", inc_field: "_id" });
 
-module.exports = Class;
+mongoose.model("classes", schema);
+
+module.exports = mongoose.model("classes");

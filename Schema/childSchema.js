@@ -1,23 +1,23 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
+const AutoIncrement = require("mongoose-sequence")(mongoose);
 
-// Define child schema
-const childSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    age: {
-        type: Number,
-        required: true,
-        min: 0
-    },
-    image: {
-        type: String,
-        required: true
-    }
+const addressSchema = new mongoose.Schema({
+	city: { type: String, required: true },
+	street: { type: String, required: true },
+	building: { type: Number, required: true },
+	_id: false,
 });
 
-// Create Child model
-const Child = mongoose.model('Child', childSchema);
+const schema = new mongoose.Schema({
+	_id: Number,
+	fullName: { type: String, required: true },
+	age: { type: Number, required: true },
+	level: { type: String, required: true },
+	address: { type: addressSchema, required: true },
+});
 
-module.exports = Child;
+schema.plugin(AutoIncrement, { id: "child_id", inc_field: "_id" });
+
+mongoose.model("Child", schema);
+module.exports = mongoose.model("Child");
+
