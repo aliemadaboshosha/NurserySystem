@@ -18,6 +18,7 @@ const schema = new mongoose.Schema({
 
 schema.plugin(AutoIncrement, { id: "child_id", inc_field: "_id" });
 
-mongoose.model("Child", schema);
-module.exports = mongoose.model("Child");
+mongoose.model("childrens", schema);
+
+module.exports = mongoose.model("childrens");
 

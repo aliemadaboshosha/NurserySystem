@@ -1,7 +1,7 @@
 const express = require("express");
-const controller = require("./../Controller/teachersController");
+const controller = require("./../Controller/teacherController");
 const validation = require("./../Core/validations/validationMiddleWare");
-const teachervalidation = require("./../Validation/teachersValidation");
+const teachervalidation = require("./../Validation/teachersValidations");
 const { checkAdmin, checkTeacherAndAdmin } = require("./../Core/auth/authenticationMiddleWare");
 const multer = require("multer");
 const path = require("path");
