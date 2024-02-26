@@ -7,26 +7,41 @@ const childsRoute = require("./Route/childRouter");
 const classesRoute = require("./Route/classRouter");
 const loginRoute = require("./Route/loginRouter");
 const authMW = require("./Core/auth/authenticationMiddleWare");
-const port = process.env.PORT || 8080;
 const server = express();
+const dotenv = require("dotenv");
+
+
+
+const swaggerJsDoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
+const swaggerFile = require("./swagger_output.json");
+
+
+dotenv.config();
+
+const port = process.env.port_number;
+
+server.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 mongoose.set("strictQuery", true);
 mongoose
-	.connect("mongodb://127.0.0.1:27017/Nursery")
+.connect(process.env.DB_url)
 	.then(() => {
 		console.log("BataBase Connection Success");
-		server.listen(port, () => console.log(`listening on http://localhost:${port}`));
+		server.listen(process.env.port_number, () => console.log(`listening on http://localhost:${port}`));
 	})
 	.catch((error) => {
 		console.log("Connection Error: " + error);
 	});
-
-server.use(cors());
-server.use(logger("dev"));
-
-server.use(express.json());
-server.use(express.urlencoded({ extended: false }));
-
+	
+	server.use(cors());
+	server.use(logger("dev"));
+	
+	server.use(express.json());
+	
+	
+	server.use(express.urlencoded({ extended: false }));
+	
 server.use(loginRoute);
 server.use(authMW);
 server.use(teacherRoute);

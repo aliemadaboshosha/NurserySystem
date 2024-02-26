@@ -1,7 +1,7 @@
 const { body, param } = require("express-validator");
 
 exports.postValidation = [
-	body("id").isNumeric().withMessage("Child Id should be Number"),
+	body("_id").isNumeric().withMessage("Child Id should be Number"),
 	body("fullName").isString().withMessage("Child Name should be string"),
 	body("age").isInt().withMessage("Child age is Invalid"),
 	body("level").isIn(["PreKG", "KG1", "KG2"]).withMessage("Invalid Level Selection"),
@@ -12,7 +12,7 @@ exports.postValidation = [
 ];
 
 exports.patchValidation = [
-	body("id").isNumeric().withMessage("Child Id should be Number"),
+	body("_id").isNumeric().withMessage("Child Id should be Number"),
 	body("fullName").optional().isString().withMessage("Child Name should be string"),
 	body("age").optional().isInt().withMessage("Child age is Invalid"),
 	body("level").optional().isIn(["PreKG", "KG1", "KG2"]).withMessage("Invalid Level Selection"),
@@ -24,4 +24,4 @@ exports.patchValidation = [
 
 exports.getChildValidation = [param("id").isNumeric().withMessage("Child Id should be Number")];
 
-exports.deleteValidation = [body("id").isNumeric().withMessage("Child Id should be Number")];
+exports.deleteValidation = [body("_id").isNumeric().withMessage("Child Id should be Number")];

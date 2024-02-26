@@ -22,7 +22,7 @@ exports.addTeacher = (request, response, next) => {
 		request.body.image = request.file.path;
 	}
 	new TeacherSchema({
-		_id: request.body.id,
+		_id: request.body._id,
 		fullName: request.body.fullName,
 		password: bcrypt.hashSync(request.body.password, salt),
 		email: request.body.email,

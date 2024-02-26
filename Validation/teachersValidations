@@ -1,7 +1,7 @@
 const { body, param } = require("express-validator");
 
 exports.postValidation = [
-	body("id").isMongoId().withMessage("Teacher Id should be Object"),
+	body("_id").isMongoId().withMessage("Teacher Id should be Object"),
 	body("fullName").isString().withMessage("Teacher Name should be string"),
 	body("password").isString().withMessage("Password Must Be Hybird").isLength({ Min: 4 }).withMessage("Password must be > 8"),
 	body("email").isEmail().withMessage("Email is Invalid"),
@@ -9,7 +9,7 @@ exports.postValidation = [
 ];
 
 exports.patchValidation = [
-	body("id").isMongoId().withMessage("Teacher Id Must Be included"),
+	body("_id").isMongoId().withMessage("Teacher Id Must Be included"),
 	body("fullName").optional().isString().withMessage("Teacher Name should be string"),
 	body("password").optional().isString().withMessage("Password Must Be Hybird").isLength({ Min: 4 }).withMessage("Password must be > 8"),
 	body("email").optional().isEmail().withMessage("Email is Invalid"),
@@ -18,4 +18,4 @@ exports.patchValidation = [
 
 exports.getTeacherValidation = [param("id").isMongoId().withMessage("Teacher Id should be Object")];
 
-exports.deleteValidation = [body("id").isMongoId().withMessage("Teacher Id should be Object")];
+exports.deleteValidation = [body("_id").isMongoId().withMessage("Teacher Id should be Object")];

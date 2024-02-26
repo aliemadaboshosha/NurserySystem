@@ -5,10 +5,12 @@ const saltRounds = 10;
 const salt = bcrypt.genSaltSync(saltRounds);
 require("./../Model/teacherModel");
 const TeacherSchema = mongoose.model("teachers");
+const dotenv = require("dotenv");
+
 
 exports.login = (request, response, next) => {
 	if (request.body.fullName == "admin" && request.body.password == "123456") {
-		let token = jwt.sign({ id: 1, role: "admin" }, "ITI", { expiresIn: "2h" });
+		let token = jwt.sign({ id: 1, role: "admin" }, process.env.SECRET_KEY, { expiresIn: "2h" });
 		response.status(200).json({ message: "Authenticated", token });
 	} else {
 		TeacherSchema.findOne({ fullName: request.body.fullName })
@@ -24,7 +26,7 @@ exports.login = (request, response, next) => {
 						error.status = 401;
 						next(error);
 					} else {
-						let token = jwt.sign({ id: data._id, role: "teacher" }, "ITI", { expiresIn: "2h" });
+						let token = jwt.sign({ id: data._id, role: "teacher" }, process.env.SECRET_KEY, { expiresIn: "2h" });
 						response.status(200).json({ message: "Authenticated", token });
 					}
 				}
