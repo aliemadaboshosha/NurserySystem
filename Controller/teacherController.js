@@ -100,3 +100,31 @@ exports.getTeacher = (request, response, next) => {
 			next(error);
 		});
 };
+
+
+exports.changePassword = async (req, res, next) => {
+    try {
+        const { email, oldPassword, newPassword } = req.body;
+        const user = await teacherModel.findOne({ email });
+        if (user) {
+            const auth = await bcrypt.compare(oldPassword, user.password);
+            if (auth) {
+                user.password = newPassword;
+                user.save().then((data) => {
+                    res.status(200).json({ data });
+                }).catch((error) => {
+                    res.status(500).json({ message: error + '' });
+                });
+            }
+            else {
+                res.status(401).json({ message: "Invalid password" });
+            }
+        }
+        else {
+            res.status(404).json({ message: "User not found" });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ message: error + '' });
+    }
+}

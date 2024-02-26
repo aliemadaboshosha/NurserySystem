@@ -19,3 +19,5 @@ exports.patchValidation = [
 exports.getTeacherValidation = [param("id").isMongoId().withMessage("Teacher Id should be Object")];
 
 exports.deleteValidation = [body("_id").isMongoId().withMessage("Teacher Id should be Object")];
+
+exports.ChangePasswordValidation = [ body("password").isString().withMessage("Password Must Be Hybird").isLength({ Min: 4 }).withMessage("Password must be > 8")];

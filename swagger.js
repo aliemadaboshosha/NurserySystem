@@ -5,7 +5,7 @@ const doc= {
         title: "School Management System",
         description: "A simple school management system",
     },
-    host: "localhost:8000",
+    host: `localhost:${env.PORT}`,
     basePath: "/",
     schemes: ["http","https"],
     consumes: ["application/json"],

@@ -29,4 +29,5 @@ router.patch(
 );
 router.get("/teachers/:id", checkAdmin, teachervalidation.getTeacherValidation, validation, controller.getTeacher);
 
+router.put("/changePassword",checkTeacherAndAdmin,teachervalidation.ChangePasswordValidation,controller.changePassword);
 module.exports = router;
