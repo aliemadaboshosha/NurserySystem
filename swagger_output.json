@@ -46,20 +46,13 @@
     "/login": {
       "post": {
         "description": "",
+        "tags": ["Login"],
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "fullName": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Login"
             }
           }
         ],
@@ -73,6 +66,7 @@
     "/teachers": {
       "get": {
         "description": "",
+        "tags": ["Teacher"],
         "responses": {
           "200": {
             "description": "OK"
@@ -81,29 +75,13 @@
       },
       "post": {
         "description": "",
+        "tags": ["Teacher"],
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "image": {
-                  "example": "any"
-                },
-                "_id": {
-                  "example": "any"
-                },
-                "fullName": {
-                  "example": "any"
-                },
-                "password": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Teacher"
             }
           }
         ],
@@ -115,6 +93,7 @@
       },
       "delete": {
         "description": "",
+        "tags": ["Teacher"],
         "parameters": [
           {
             "name": "body",
@@ -139,29 +118,13 @@
     "/teacher": {
       "patch": {
         "description": "",
+        "tags": ["Teacher"],
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "password": {
-                  "example": "any"
-                },
-                "id": {
-                  "example": "any"
-                },
-                "image": {
-                  "example": "any"
-                },
-                "fullName": {
-                  "example": "any"
-                },
-                "email": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Teacher"
             }
           }
         ],
@@ -175,6 +138,7 @@
     "/teachers/{id}": {
       "get": {
         "description": "",
+        "tags": ["Teacher"],
         "parameters": [
           {
             "name": "id",
@@ -193,6 +157,7 @@
     "/childs": {
       "get": {
         "description": "",
+        "tags": ["Child"],
         "responses": {
           "200": {
             "description": "OK"
@@ -201,29 +166,13 @@
       },
       "post": {
         "description": "",
+        "tags": ["Child"],
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                },
-                "fullName": {
-                  "example": "any"
-                },
-                "age": {
-                  "example": "any"
-                },
-                "level": {
-                  "example": "any"
-                },
-                "address": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Child"
             }
           }
         ],
@@ -235,6 +184,7 @@
       },
       "delete": {
         "description": "",
+        "tags": ["Child"],
         "parameters": [
           {
             "name": "body",
@@ -257,29 +207,13 @@
       },
       "patch": {
         "description": "",
+        "tags": ["Child"],
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "example": "any"
-                },
-                "fullName": {
-                  "example": "any"
-                },
-                "age": {
-                  "example": "any"
-                },
-                "level": {
-                  "example": "any"
-                },
-                "address": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Child"
             }
           }
         ],
@@ -293,6 +227,7 @@
     "/childs/{id}": {
       "get": {
         "description": "",
+        "tags": ["Child"],
         "parameters": [
           {
             "name": "id",
@@ -311,6 +246,7 @@
     "/classes": {
       "get": {
         "description": "",
+        "tags": ["Class"],
         "responses": {
           "200": {
             "description": "OK"
@@ -319,26 +255,13 @@
       },
       "post": {
         "description": "",
+        "tags": ["Class"],
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "supervisor": {
-                  "example": "any"
-                },
-                "id": {
-                  "example": "any"
-                },
-                "fullName": {
-                  "example": "any"
-                },
-                "children": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Class"
             }
           }
         ],
@@ -350,6 +273,7 @@
       },
       "delete": {
         "description": "",
+        "tags": ["Class"],
         "parameters": [
           {
             "name": "body",
@@ -372,17 +296,13 @@
       },
       "patch": {
         "description": "",
+        "tags": ["Class"],
         "parameters": [
           {
             "name": "body",
             "in": "body",
             "schema": {
-              "type": "object",
-              "properties": {
-                "supervisor": {
-                  "example": "any"
-                }
-              }
+              "$ref": "#/definitions/Class"
             }
           }
         ],
@@ -396,6 +316,7 @@
     "/classes/{id}": {
       "get": {
         "description": "",
+        "tags": ["Class"],
         "parameters": [
           {
             "name": "id",
@@ -414,6 +335,7 @@
     "/classChildren/{id}": {
       "get": {
         "description": "",
+        "tags": ["Class"],
         "parameters": [
           {
             "name": "id",
@@ -432,6 +354,7 @@
     "/classTeacher/{id}": {
       "get": {
         "description": "",
+        "tags": ["Class"],
         "parameters": [
           {
             "name": "id",
@@ -452,7 +375,7 @@
     "Login": {
       "type": "object",
       "properties": {
-        "email": {
+        "fullName": {
           "type": "string",
           "example": ""
         },
